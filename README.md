@@ -1,28 +1,16 @@
-# Dockerizing OpenSIPS Service
-Dockerfile to build a OpenSIPS container image. The container provides rapid deployment of VoIP services
-
-### Build Images
-First, clone this project to the local：
-```sh
-$ git clone https://github.com/imac-cloud/docker-opensips.git
-```
-
-Then, into the directory and execute the following command：
-```sh
-$ cd docker-opensips
-$ docker build -t imac-cloud/opensips:2.2.0 .
-```
+# Dockerizing OpenSIPS/RTPEngine/HEP Services
+Dockerfile to build a OpenSIPS/RTPEngine/HEP container image. The container provides rapid deployment of VoIP service monitoring prototyping and should not be used for much else. This build is specialized for Carina Docker and might fail elsewhere.
 
 ### Quick Start
-Automated builds of the image are available on [DockerHub](https://hub.docker.com/r/imaccloud/docker-opensips/) and is the recommended method of installation.
+Automated builds of the image are available on [DockerHub](https://hub.docker.com/r/qxip/homer-hepswitch)
 ```sh
-$ docker pull imaccloud/docker-opensips:2.2.0
+$ docker pull qxip/docker-hepswitch
 ```
 
-Now, you can manually launch the OpenSIPS container, the following command：
+Use the following command to start the container：
 ```sh
-$ docker run --name opensips -d -p 5060:5060/udp \
+$ docker run --name hepswitch -d -p 5060:5060/udp \
 -e ADVERTISED_IP="<ADVERTISED_IP>" \
-imac-cloud/opensips:1.0.0
+-e ADVERTISED_PORT="<ADVERTISED_PORT>" \
+qxip/docker-hepswitch
 ```
-> Please provides a ```ADVERTISED_IP```.
