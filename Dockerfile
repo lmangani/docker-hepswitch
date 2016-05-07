@@ -17,12 +17,14 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_2
 
-RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev libxmlrpc-core-c3-dev debhelper libssl-dev markdown \
-    module-assistant dkms libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat
+RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev \
+    libxmlrpc-core-c3-dev debhelper libssl-dev markdown module-assistant dkms libbencode-perl libcrypt-rijndael-perl \
+    libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat linux-headers-generic
+    
 RUN git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
     ./debian/flavors/no_ngcp && dpkg-buildpackage && cd .. && dpkg -i ./*.deb && rm -rf ./*.deb rtpengine
     
-RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl && \
+RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl linux-headers-generic && \
     apt-get autoremove -y && \
     apt-get install -y libmicrohttpd10 rsyslog sngrep && \
     apt-get clean
