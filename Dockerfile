@@ -24,7 +24,7 @@ RUN git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
     
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl && \
     apt-get autoremove -y && \
-    apt-get install -y libmicrohttpd10 rsyslog && \
+    apt-get install -y libmicrohttpd10 rsyslog sngrep && \
     apt-get clean
 
 COPY conf/opensipsctlrc /usr/local/etc/opensips/opensipsctlrc
