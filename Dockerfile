@@ -17,13 +17,17 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_2
 
-RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev \
-    libxmlrpc-core-c3-dev debhelper libssl-dev markdown module-assistant dkms libbencode-perl libcrypt-rijndael-perl \
-    libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat
-    
-RUN git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
-    ./debian/flavors/no_ngcp && dpkg-buildpackage && cd .. && dpkg -i ./*.deb && \
-    rm -rf ./*.deb && rm -rf ./rtpengine
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
+    touch ./debian/flavors/no_ngcp && \
+    apt-get install -qqy dpkg-dev debhelper iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext && \
+    dpkg-checkbuilddeps && \
+    dpkg-buildpackage -b -us -uc && \
+    dpkg -i ../*.deb && \
+    ( ( apt-get install -y linux-headers-$(uname -r) linux-image-$(uname -r) && \
+        module-assistant update && \
+        module-assistant auto-install ngcp-rtpengine-kernel-source ) || true ) && \
+    rm -rf rtpengine
     
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl  && \
     apt-get autoremove -y && \
