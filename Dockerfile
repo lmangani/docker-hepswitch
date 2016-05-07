@@ -17,15 +17,14 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_2
 
+RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev libxmlrpc-core-c3-dev debhelper libssl-dev markdown
+RUN git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
+    ./debian/flavors/no_ngcp && dpkg-buildpackage && cd .. && dpkg -i ./*.deb && rm -rf ./*.deb rtpengine
+    
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl && \
     apt-get autoremove -y && \
     apt-get install -y libmicrohttpd10 rsyslog && \
     apt-get clean
-
-RUN mkdir /tmp/rtpengine
-COPY rtpengine/*.deb /tmp/rtpengine/
-RUN dpkg -i /tmp/rtpengine/*.deb
-RUN rm -rf /tmp/rtpengine
 
 COPY conf/opensipsctlrc /usr/local/etc/opensips/opensipsctlrc
 COPY conf/opensips-rtpengine.cfg /usr/local/etc/opensips/opensips.cfg
