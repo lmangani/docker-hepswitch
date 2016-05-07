@@ -17,7 +17,8 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_2
 
-RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev libxmlrpc-core-c3-dev debhelper libssl-dev markdown
+RUN apt-get install -y git dpkg-dev iptables-dev libcurl4-gnutls-dev libhiredis-dev libglib2.0-dev libevent-dev libxmlrpc-core-c3-dev debhelper libssl-dev markdown \
+    module-assistant dkms libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat
 RUN git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
     ./debian/flavors/no_ngcp && dpkg-buildpackage && cd .. && dpkg -i ./*.deb && rm -rf ./*.deb rtpengine
     
