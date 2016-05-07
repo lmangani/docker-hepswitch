@@ -33,11 +33,6 @@ expect \"END\"
 
 # Configure opensips.cfg
 sed -i "s/advertised_address=.*/advertised_address=\"${ADVERTISED_IP}\"/g" /usr/local/etc/opensips/opensips.cfg
-
-if [ ! -z "$EXTERNAL_IP" ]; then
-	sed -i "s/alias=.*/a alias=\"${EXTERNAL_IP}"" /usr/local/etc/opensips/opensips.cfg
-fi
-
 sed -i "s/alias=.*/alias=\"${ADVERTISED_IP}\"/g" /usr/local/etc/opensips/opensips.cfg
 sed -i "s/listen=.*/listen=udp:${HOST_IP}:${ADVERTISED_PORT}/g" /usr/local/etc/opensips/opensips.cfg
 
