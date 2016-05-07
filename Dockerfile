@@ -28,7 +28,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl  && \
     apt-get autoremove -y && \
-    apt-get install -y libmicrohttpd10 rsyslog sngrep && \
+    apt-get install -y libmicrohttpd10 rsyslog ngrep && \
     apt-get clean
 
 COPY conf/opensipsctlrc /usr/local/etc/opensips/opensipsctlrc
