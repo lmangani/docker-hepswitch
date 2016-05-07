@@ -20,7 +20,8 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
     touch ./debian/flavors/no_ngcp && \
-    apt-get install -qqy dpkg-dev debhelper libevent-dev iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext && \
+    apt-get install -qqy dpkg-dev debhelper libevent-dev iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext \
+    libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat linux-image-3.13.0-40-generic && \
     dpkg-checkbuilddeps && \
     dpkg-buildpackage -b -us -uc && \
     dpkg -i ../*.deb && \
