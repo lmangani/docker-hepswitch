@@ -33,8 +33,8 @@ expect \"END\"
 
 # Configure opensips.cfg
 sed -i "s/advertised_address=.*/advertised_address=\"${ADVERTISED_IP}\"/g" /usr/local/etc/opensips/opensips.cfg
-sed -i "s/alias=.*/alias=\"${ADVERTISED_IP}\"/g" /usr/local/etc/opensips/opensips.cfg
 sed -i "s/listen=.*/listen=udp:${HOST_IP}:${ADVERTISED_PORT}/g" /usr/local/etc/opensips/opensips.cfg
+sed -i "s/listen=.*/listen=ws:${HOST_IP}:${ADVERTISED_PORT}/g" /usr/local/etc/opensips/opensips.cfg
 
 # Starting RTPEngine process
 rtpengine -p /var/run/rtpengine.pid --interface=127.0.0.1!$ADVERTISED_IP -n 127.0.0.1:60000 -c 127.0.0.1:60001 -m 20000 -M 30000 -E -L 7
