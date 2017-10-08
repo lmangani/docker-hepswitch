@@ -1,0 +1,15 @@
+version: '2'
+services:
+  opensips-rec:
+    image: qxip/docker-opensips-rec
+    privileged: true
+    environment:
+      RECORDING: 1
+    volumes:
+       - /var/lib/mysql
+       - /recording
+    ports:
+      - "9060:9060/udp"
+      - "5060:5060/udp"
+      - "5061:5061/tcp"
+      - "20000-20100:20000-20100/udp"

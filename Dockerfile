@@ -19,12 +19,17 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
-    ./debian/flavors/no_ngcp && \
     apt-get install -qqy dpkg-dev debhelper libevent-dev iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext \
-    libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat && \
+    libavcodec-dev libavfilter-dev libavformat-dev libjson-glib-dev libpcap-dev nfs-common \
+    libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat \
+    linux-headers-$(uname -r) && \
+    ./debian/flavors/no_ngcp && \
     dpkg-buildpackage  && \
     dpkg -i ../*.deb && \
-    rm -rf rtpengine
+    rm -rf ../*.deb && \
+    rm -rf rtpengine && \
+    mkdir /wproc && \
+    apt-get clean
     
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl  && \
     apt-get autoremove -y && \
@@ -42,6 +47,6 @@ EXPOSE 5060/tcp
 EXPOSE 9060/udp
 EXPOSE 9060/tcp
 EXPOSE 6060/udp
-EXPOSE 20000-30000/udp
+EXPOSE 20000-20100/udp
 
 ENTRYPOINT ["/etc/boot_run.sh"]
