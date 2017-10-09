@@ -4,7 +4,8 @@ services:
     image: qxip/docker-hepswitch
     privileged: true
     environment:
-      RECORDING: 1
+      ADVERTISED_RANGE_FIRST: 20000
+      ADVERTISED_RANGE_LAST: 20100
     volumes:
        - /var/lib/mysql
        - /recording
