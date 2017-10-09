@@ -34,7 +34,8 @@ sed -i "s/listen=udp.*/listen=udp:${HOST_IP}:${ADVERTISED_PORT}/g" /usr/local/et
 sed -i "s/listen=ws.*/listen=ws:${HOST_IP}:${WSS_PORT}/g" /usr/local/etc/opensips/opensips.cfg
 
 # Starting RTPEngine process
-insmod /rtpengine/xt_RTPENGINE.ko
+cp -u /rtpengine/xt_RTPENGINE.ko "/lib/modules/$(uname -r)/extra"
+depmod -a
 modprobe xt_RTPENGINE
 mkdir /recording
 rtpengine -p /var/run/rtpengine.pid --interface=$HOST_IP!$ADVERTISED_IP -n 127.0.0.1:60000 -c 127.0.0.1:60001 -m 20000 -M 20100 -E -L 7 \

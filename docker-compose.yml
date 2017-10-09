@@ -9,6 +9,7 @@ services:
        - /var/lib/mysql
        - /recording
        - /lib/modules:/lib/modules
+       - /dev:/dev
     ports:
       - "9060:9060/udp"
       - "5060:5060/udp"

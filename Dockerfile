@@ -23,7 +23,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -qqy dpkg-dev debhelper libevent-dev iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext \
     libavcodec-dev libavfilter-dev libavformat-dev libjson-glib-dev libpcap-dev nfs-common \
     libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat && \
-    apt-get install -qqy linux-headers-$(uname -r) && \
+
+    ( ( apt-get install -y linux-headers-$(uname -r) linux-image-$(uname -r) && \
+        module-assistant update && \
+        module-assistant auto-install ngcp-rtpengine-kernel-source ) || true ) && \
+
     ln -s /lib/modules/3.16.0-4-amd64 /lib/modules/3.16.0 && \
     #./debian/flavors/no_ngcp && \
     #dpkg-buildpackage  && \
