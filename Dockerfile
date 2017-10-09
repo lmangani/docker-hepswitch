@@ -17,18 +17,18 @@ RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && 
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_2
 
+COPY /rtpengine /rtpengine
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
+    #git clone https://github.com/sipwise/rtpengine.git && cd rtpengine && \
     apt-get install -qqy dpkg-dev debhelper libevent-dev iptables-dev libcurl4-openssl-dev libglib2.0-dev libhiredis-dev libpcre3-dev libssl-dev libxmlrpc-core-c3-dev markdown zlib1g-dev module-assistant dkms gettext \
     libavcodec-dev libavfilter-dev libavformat-dev libjson-glib-dev libpcap-dev nfs-common \
-    libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat \
-    linux-headers-$(uname -r) && \
-    ./debian/flavors/no_ngcp && \
-    dpkg-buildpackage  && \
-    dpkg -i ../*.deb && \
-    rm -rf ../*.deb && \
-    rm -rf rtpengine && \
-    mkdir /wproc && \
+    libbencode-perl libcrypt-rijndael-perl libdigest-hmac-perl libio-socket-inet6-perl libsocket6-perl netcat && \
+    apt-get install -qqy linux-headers-$(uname -r) && \
+    ln -s /lib/modules/3.16.0-4-amd64 /lib/modules/3.16.0 && \
+    #./debian/flavors/no_ngcp && \
+    #dpkg-buildpackage  && \
+    dpkg -i /rtpengine/*.deb && \
+    apt-get install -f && \
     apt-get clean
     
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl  && \

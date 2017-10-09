@@ -1,13 +1,14 @@
 version: '2'
 services:
   opensips-rec:
-    image: qxip/docker-opensips-rec
+    image: qxip/docker-hepswitch
     privileged: true
     environment:
       RECORDING: 1
     volumes:
        - /var/lib/mysql
        - /recording
+       - /lib/modules:/lib/modules
     ports:
       - "9060:9060/udp"
       - "5060:5060/udp"
