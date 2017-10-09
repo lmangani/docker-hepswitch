@@ -43,6 +43,7 @@ depmod -a
 modprobe xt_RTPENGINE
 mkdir /recording
 # Starting RTPEngine process
+rtpengine-recording --config-file=/etc/rtpengine/rtpengine-recording.conf
 rtpengine -p /var/run/rtpengine.pid --interface=$HOST_IP!$ADVERTISED_IP -n 127.0.0.1:60000 -c 127.0.0.1:60001 -m $ADVERTISED_RANGE_FIRST -M $ADVERTISED_RANGE_LAST -E -L 7 \
   --recording-method=proc \
   --recording-dir=/recording
