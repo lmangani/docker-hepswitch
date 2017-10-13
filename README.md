@@ -3,6 +3,8 @@
 # HEP-Switch = OpenSIPS 2.2+
 This repository provides a generic OpenSIPS HEP Switching capable container image for rapid development and prototyping of HEP playgrounds. Presented methods are suitable for production usage when properly configured.
 
+For an in-depth explanation of the techniques and features used in this demo, please refer to this post on the [opensips blog](https://blog.opensips.org/2017/10/12/opensips-as-hep-proxyswitch/)
+
 
 ### Quick Start
 Automated builds of the image are usually available on [DockerHub](https://hub.docker.com/r/qxip/homer-hepswitch)
