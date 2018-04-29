@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y sudo git make bison flex curl && \
 RUN curl ipinfo.io/ip > /etc/public_ip.txt
 
 RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.3 ~/opensips_2_3 && \
-    sed -i 's/db_http db_mysql db_oracle/db_http db_oracle/g' ~/opensips_2_3/Makefile.conf.template && \
+    sed -i 's/db_http db_mysql db_oracle/db_http rest_client db_oracle/g' ~/opensips_2_3/Makefile.conf.template && \
     cd ~/opensips_2_3 && \
     make all && make prefix=/usr/local install && \
     cd .. && rm -rf ~/opensips_2_3
