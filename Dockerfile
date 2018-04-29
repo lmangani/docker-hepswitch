@@ -24,7 +24,7 @@ RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-confi
     apt-get clean
 
 COPY conf/opensipsctlrc /usr/local/etc/opensips/opensipsctlrc
-COPY conf/opensips-hepswitch.cfg /usr/local/etc/opensips/opensips.cfg
+COPY conf/opensips-homer7.cfg /usr/local/etc/opensips/opensips.cfg
 
 COPY boot_run.sh /etc/boot_run.sh
 RUN chown root.root /etc/boot_run.sh && chmod 700 /etc/boot_run.sh
