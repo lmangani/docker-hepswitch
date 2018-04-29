@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y sudo git make bison flex curl && \
 
 RUN curl ipinfo.io/ip > /etc/public_ip.txt
 
-RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.2 ~/opensips_2_2 && \
-    sed -i 's/db_http db_mysql db_oracle/db_http db_oracle/g' ~/opensips_2_2/Makefile.conf.template && \
-    cd ~/opensips_2_2 && \
+RUN git clone https://github.com/OpenSIPS/opensips.git -b 2.3 ~/opensips_2_3 && \
+    sed -i 's/db_http db_mysql db_oracle/db_http db_oracle/g' ~/opensips_2_3/Makefile.conf.template && \
+    cd ~/opensips_2_3 && \
     make all && make prefix=/usr/local install && \
-    cd .. && rm -rf ~/opensips_2_2
+    cd .. && rm -rf ~/opensips_2_3
 
 RUN apt-get purge -y bison build-essential ca-certificates flex git m4 pkg-config curl  && \
     apt-get autoremove -y && \
@@ -33,6 +33,5 @@ EXPOSE 5060/udp
 EXPOSE 5060/tcp
 EXPOSE 9060/udp
 EXPOSE 9060/tcp
-EXPOSE 6060/udp
 
 ENTRYPOINT ["/etc/boot_run.sh"]
